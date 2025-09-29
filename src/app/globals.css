@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@layer 
+base
+ {
+  *, *::before, *::after {
+    
+box-sizing
+: border-box;
+  }
+
+  * {
+    
+margin
+: 0;
+    
+padding
+: 0;
+    
+box-sizing
+: border-box;
+  }
+
+  html {
+    
+font-family
+: sans-serif;
+    /* color: #333; */
+  }
+}
+
+:root {
+  /* Fontes */
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'Courier New', monospace;
+  --font-heading: var(--font-space-grotesk), var(--font-inter), sans-serif;
+
+  /* Cores do Modo Escuro (padrão) */
+  --primary: #A855F7;
+  --primary-foreground: #FEFEFE;
+  --background: #0F0F23;
+  --foreground: #FEFEFE;
+  --card: #1A1A2E;
+  --card-foreground: #FEFEFE;
+  --secondary: #16213E;
+  --secondary-foreground: #FEFEFE;
+  --muted: #16213E;
+  --muted-foreground: #A1A1AA;
+  --border: #16213E;
+  --input: #16213E;
+  --ring: #A855F7;
+  --connectSection: #746cc5;
+  --destructive: #EF4444;
+  --destructive-foreground: #FEFEFE;
+  --header: #040308;
+}
+
+/* Classes customizadas para efeitos */
+.header-blur {
+  background-color: rgba(26, 26, 46, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.menu-blur {
+  background-color: rgba(26, 26, 46, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+/* Classes de tipografia */
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
