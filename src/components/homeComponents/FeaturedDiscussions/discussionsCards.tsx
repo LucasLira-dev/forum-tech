@@ -1,5 +1,5 @@
 import { FaClock, FaComment } from "react-icons/fa"
-import Avatar from "../ui/avatar"
+import Avatar from "../../ui/avatar"
 
 interface DiscussionsCardsProps {
     tecnologies: string[];

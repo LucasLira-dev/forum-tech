@@ -36,12 +36,12 @@ const topics = [
             "frontend"
         ],
         title: "Melhores práticas para otimização de SEO em sites estáticos",
-        user: {
+       user: {
             name: "Lucas Mendes",
             avatar: "https://github.com/shadcn.png"
         },
         time: "4",
-        answers: 6
+        answers: 6 
     },
 ]
 
