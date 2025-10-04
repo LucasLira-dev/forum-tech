@@ -1,11 +1,9 @@
-import { Menu } from "@/components/Menu/menu";
 import { FindTopics } from "@/components/topicsComponents/FindTopics/findTopics";
 import { FaPlus } from "react-icons/fa";
 
 export default function Topics() {
     return(
     <>
-        <Menu />
         <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col pt-19">
         <section
         className="p-6 sm:p-8 md:px-30 space-y-3 ">

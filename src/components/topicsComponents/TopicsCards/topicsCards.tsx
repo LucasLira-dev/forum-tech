@@ -1,7 +1,9 @@
 import Avatar from "@/components/ui/avatar"
+import Link from "next/link";
 import { FaClock, FaComment } from "react-icons/fa"
 
 interface TopicsCardsProps {
+    id: string;
     title: string;
     description: string;
     user: {
@@ -12,9 +14,10 @@ interface TopicsCardsProps {
     answers: number;
 }
 
-export const TopicsCards = ({ title, description, user, time, answers }: TopicsCardsProps   ) => {
+export const TopicsCards = ({id, title, description, user, time, answers }: TopicsCardsProps   ) => {
     return(
-        <div
+        <Link
+        href={`topics/${id}`}
         className="flex flex-col gap-4 p-4 rounded-lg mb-4 hover:bg-[var(--muted)] hover:text-[var(--muted-foreground)] transition-colors border border-[var(--border)] cursor-pointer">
             <h2
             className="text-[var(--foreground)] font-semibold text-lg">
@@ -52,6 +55,6 @@ export const TopicsCards = ({ title, description, user, time, answers }: TopicsC
                     {answers} <span className="hidden sm:block"> Comentários </span>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }

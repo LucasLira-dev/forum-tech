@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { IoMenu } from "react-icons/io5";
 import { FiX } from "react-icons/fi";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import Link from 'next/link';
 
 export const Menu = () => {
     const [isMobile, setIsMobile] = useState(false);
@@ -56,10 +57,11 @@ export const Menu = () => {
                             >
                                 Tópicos
                             </a>
-                            <a href="#" className='rounded-md hover:text-[var(--ring)] transition-colors p-2'
+                            <Link 
+                            href="/topics" className='rounded-md hover:text-[var(--ring)] transition-colors p-2'
                             >
                                 Meu Perfil
-                            </a>
+                            </Link>
                             <a href="#" className='rounded-md hover:text-[var(--ring)] transition-colors flex items-center gap-2 p-2'
                             >   
                                 <MdOutlineAdminPanelSettings size={20} />
