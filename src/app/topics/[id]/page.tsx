@@ -56,6 +56,22 @@ export default function TopicPage({ params }: TopicPageProps) {
         // Por enquanto, apenas fecha o input
     };
 
+    const handleEditTopic = () => {
+        // Implementar lógica de edição
+        console.log("Editando tópico:", topic.title);
+    };
+
+    const handleEditComment = (commentIndex: number) => {
+        // Implementar lógica de edição de comentário
+        console.log("Editando comentário:", commentIndex);
+    };
+
+    const handleSaveComment = (commentIndex: number, newText: string) => {
+        // Implementar lógica para salvar comentário editado
+        console.log("Salvando comentário:", commentIndex, "Novo texto:", newText);
+        // Aqui você atualizaria o estado/API com o novo texto
+    };
+
     return (
       <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col">
         <section className="p-6 sm:p-8 pt-19 md:pt-24 max-w-5xl mx-auto my-8 flex flex-col gap-5">
@@ -70,6 +86,9 @@ export default function TopicPage({ params }: TopicPageProps) {
               "Performance",
               "Web Development",
             ]}
+            showActions={true}
+            onEdit={handleEditTopic}
+            onDelete={() => console.log("Delete topic clicked")}
           />
 
           <CommentButton
@@ -92,6 +111,9 @@ export default function TopicPage({ params }: TopicPageProps) {
                   userAvatarUrl={comment.avatar}
                   commentText={comment.description}
                   commentTime={comment.time}
+                  showActions={true}
+                  onEdit={() => handleEditComment(index)}
+                  onSave={(newText) => handleSaveComment(index, newText)}
                 />
               ))}
             </div>
@@ -102,6 +124,3 @@ export default function TopicPage({ params }: TopicPageProps) {
       </main>
     );
 }
-
-
-//p-6 sm:p-8 md:px-30 space-y-3
