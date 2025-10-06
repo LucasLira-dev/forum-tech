@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { DiscussionsCards } from "./discussionsCards"
 
 const topics = [
@@ -71,10 +72,10 @@ export const FeaturedDiscussions = () => {
                 ))}
             </div>
 
-            <button
+            <Link href="/topics"
             className="text-center bg-[var-(--background)] rounded-md px-4 py-2 mt-4 mx-auto text-[var(--primary)] font-semibold hover:bg-[var(--ring)] hover:text-[var(--foreground)] transition-colors border-1 border-[var(--background)] cursor-pointer">
                 Ver mais assuntos
-            </button>
+            </Link>
         </article>
     )
 }

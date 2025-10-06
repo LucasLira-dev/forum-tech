@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 
 export const CtaSection = () => {
@@ -13,15 +14,15 @@ export const CtaSection = () => {
            </p> 
            <div
            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <button
+            <Link href="/topics/create" 
             className="bg-[var(--primary)] text-[var(--foreground)] px-6 py-3 rounded-md hover:bg-[var(--connectSection)] hover:text-[var(--foreground)] transition-colors cursor-pointer flex items-center justify-center gap-2 w-full sm:w-auto sm:min-w-[200px]">
                 Criar primeiro tópico
                 <FaArrowRight className="inline ml-2" />
-            </button>
-            <button
+            </Link>
+            <Link href="/topics"
             className="bg-[var(--background)] text-[var(--foreground)] px-6 py-3 rounded-md hover:bg-transparent hover:text-[var(--foreground)] transition-colors cursor-pointer w-full sm:w-auto sm:min-w-[200px] border border-[var(--border)]">
                 Explorar comunidade
-            </button>
+            </Link>
            </div>   
         </article>
     )

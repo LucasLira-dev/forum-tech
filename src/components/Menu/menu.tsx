@@ -82,10 +82,10 @@ export const Menu = () => {
                         >
                             Inicio
                         </a>
-                        <a href="#" className='rounded-md hover:text-[var(--ring)] transition-colors p-2 block'
+                        <Link href="/topics" className='rounded-md hover:text-[var(--ring)] transition-colors p-2 block'
                         >
                             Tópicos
-                        </a>
+                        </Link>
                         <a href="#" className='rounded-md hover:text-[var(--ring)] transition-colors p-2 block'
                         >
                             Meu Perfil

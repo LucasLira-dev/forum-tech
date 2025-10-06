@@ -1,4 +1,5 @@
 import { FindTopics } from "@/components/topicsComponents/FindTopics/findTopics";
+import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 
 export default function Topics() {
@@ -13,11 +14,11 @@ export default function Topics() {
                 className="text-3xl font-bold">
                     Tópicos
                 </h1>
-                <button
+                <Link href="/topics/create"
                 className="flex gap-2 items-center bg-[var(--primary)] text-[var(--secondary)] rounded-md px-4 py-2 w-fit hover:brightness-110 transition font-bold cursor-pointer">
                     <FaPlus className="inline mr-2" />
                     Novo Tópico
-                </button>
+                </Link>
             </div>
             <FindTopics />
           </section>

@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { BsArrowRight } from "react-icons/bs"
 
 export const ConnectSection = () => {
@@ -34,17 +35,17 @@ export const ConnectSection = () => {
 
             <div
             className="flex flex-col justify-center items-center sm:flex-row gap-2 w-full">
-                <button
+                <Link href="/topics"
                 className="flex bg-[var(--background)] gap-2 text-[var(--primary)] text-[16px] font-semibold rounded-md px-4 py-2 hover:bg-[var(--ring)] hover:text-[var(--foreground)] transition-colors border-1 border-[var(--background)] cursor-pointer w-full sm:max-w-[300px] justify-center items-center">
                     <p>
                         Explorar Discussões
                     </p>
                     <BsArrowRight size={20} className="ml-2" />
-                </button>
-                <button
+                </Link>
+                <Link href="/topics/create"
                 className="flex bg-transparent gap-2 text-[var(--secondary)] text-[16px] font-semibold rounded-md px-4 py-2 hover:bg-[var(--foreground)]/20 transition-colors border-1 border-[var(--border)] cursor-pointer w-full sm:max-w-[300px] justify-center">
                     Criar Tópico
-                </button>
+                </Link>
             </div>
             </div>
         </section>
