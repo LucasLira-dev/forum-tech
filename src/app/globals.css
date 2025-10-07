@@ -53,6 +53,7 @@ font-family
   --destructive: #EF4444;
   --destructive-foreground: #FEFEFE;
   --header: #040308;
+  --accent: #020104;
 }
 
 /* Classes customizadas para efeitos */
