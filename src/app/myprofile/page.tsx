@@ -1,4 +1,4 @@
-import ProfileTabs from "@/components/ProfileConfigsComponents/ProfileTabs/profileTabs";
+import ProfileTabs from "@/components/MyProfileConfigsComponents/ProfileTabs/profileTabs";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 

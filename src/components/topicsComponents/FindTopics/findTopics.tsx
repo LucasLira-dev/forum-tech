@@ -22,8 +22,8 @@ export const topics = [
             },
             {
                 id: "2",
-                userName: "Pedro Santos",
-                avatar: "https://github.com/pedrosantos.png",
+                userName: "Lucas mndes",
+                avatar: "https://github.com/LucasLira-dev.png",
                 description: "Uma dica que salvou meu projeto foi implementar debounce nos inputs de busca. Também descobri que mover estado para baixo na árvore de componentes reduz drasticamente re-renders desnecessários.",
                 time: "3h"
             },
@@ -49,8 +49,8 @@ export const topics = [
         comments: [
             {
                 id: "1",
-                userName: "Carlos Lima",
-                avatar: "https://github.com/carloslima.png",
+                userName: "Lucas mndes",
+                avatar: "https://github.com/LucasLira-dev.png",
                 description: "Tailwind realmente mudou minha forma de trabalhar com CSS! Uma dica: use o plugin container queries para responsividade baseada no container, não apenas na viewport.",
                 time: "2h"
             },

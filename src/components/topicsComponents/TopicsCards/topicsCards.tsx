@@ -16,8 +16,8 @@ interface TopicsCardsProps {
 
 export const TopicsCards = ({id, title, description, user, time, answers }: TopicsCardsProps   ) => {
     return(
-        <Link
-        href={`topics/${id}`}
+    <Link
+    href={`/topics/${id}`}
         className="flex flex-col gap-4 p-4 rounded-lg mb-4 hover:bg-[var(--muted)] hover:text-[var(--muted-foreground)] transition-colors border border-[var(--border)] cursor-pointer">
             <h2
             className="text-[var(--foreground)] font-semibold text-lg">
