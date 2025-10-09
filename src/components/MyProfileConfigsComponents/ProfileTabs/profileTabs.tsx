@@ -57,6 +57,25 @@ export const ProfileTabs = ({ defaultTab = 'profile' }: ProfileTabsProps) => {
         <UpdateEmail />
         <UpdatePassword />
         <ChangePrivacity />
+
+        {/* Deletar conta */}
+        <div className="w-full p-4 rounded-md border border-[var(--border)] bg-[var(--card)]">
+          <h3 className="text-lg font-semibold">Deletar conta</h3>
+          <p className="text-[var(--muted-foreground)] text-sm mt-2">Ao deletar sua conta, todos os seus dados serão removidos permanentemente. Esta ação não pode ser desfeita.</p>
+
+          <div className="mt-4 flex items-center gap-3">
+            <input id="confirm-delete" type="checkbox" className="w-4 h-4" />
+            <label htmlFor="confirm-delete" className="text-[var(--muted-foreground)] text-sm">Confirmo que desejo deletar minha conta</label>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => { /* placeholder: chamar API para deletar conta */ }}
+            className="mt-4 bg-[var(--destructive)] text-[var(--destructive-foreground)] rounded-md px-4 py-2 hover:brightness-95 transition font-bold"
+          >
+            Deletar conta
+          </button>
+        </div>
       </Tabs.Content>
     </Tabs.Root>
   );
