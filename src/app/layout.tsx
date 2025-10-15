@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-// Menu moved to (site) group layout
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,7 +35,7 @@ export default function RootLayout({
         <body
         className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} antialiased font-sans`}
       >
-        {children}
+          {children}
       </body>
     </html>
   );

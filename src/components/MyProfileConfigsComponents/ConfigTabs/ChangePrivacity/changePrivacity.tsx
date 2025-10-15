@@ -1,15 +1,13 @@
 import { FaEye } from "react-icons/fa"
 import * as Switch from '@radix-ui/react-switch';
-import { useState } from 'react';
+import { useMyProfile } from "@/contexts/MyProfileContext";
 
 export const ChangePrivacity = () => {
-    const [isPublic, setIsPublic] = useState<boolean>(true);
+    const {updateVisibility, setIsPublic, isPublic} = useMyProfile();
 
     const handleToggle = (checked: boolean) => {
         setIsPublic(checked);
-        // Aqui você pode chamar a API para salvar a preferência de privacidade.
-        // Exemplo: fetch('/api/profile', { method: 'PATCH', body: JSON.stringify({ isPublic: checked }) })
-        console.log('Perfil público:', checked);
+        updateVisibility(checked)
     }
 
     return (
@@ -35,7 +33,7 @@ export const ChangePrivacity = () => {
                 id="profile-public-switch"
                 checked={isPublic}
                 onCheckedChange={handleToggle}
-                aria-label="Perfil público"
+                aria-label={isPublic ? 'Perfil público' : 'Perfil privado'}
             >
                 <Switch.Thumb className="inline-block h-4 w-4 transform rounded-full bg-white transition-transform data-[state=checked]:translate-x-5" />
             </Switch.Root>

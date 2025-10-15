@@ -2,7 +2,7 @@ import NextAuth, { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -30,6 +30,7 @@ const authOptions: NextAuthOptions = {
             }
 
             const data = await res.json();
+            console.log(data.refresh_token)
 
             if(!data.access_token || !data.expiresIn){
                 throw new Error('Token ou tempo de expiração não fornecidos');
@@ -79,7 +80,7 @@ const authOptions: NextAuthOptions = {
                     if(data?.access_token && data?.expiresIn){
                         token.accessToken = data.access_token;
                         token.expiresAt = Date.now() + data.expiresIn * 1000;
-                        token.refreshToken = data.refresh_token;
+                        token.refreshToken = data.refresh_token ?? token.refreshToken;
                     } else {
                         throw new Error("Token ou tempo de expiração não fornecidos");
                     }

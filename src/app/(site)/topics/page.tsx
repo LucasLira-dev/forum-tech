@@ -1,8 +1,23 @@
 import { FindTopics } from "@/components/topicsComponents/FindTopics/findTopics";
+import { myProfileService } from "@/services/myProfileService";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 
-export default function Topics() {
+export default async function Topics() {
+    const session = await getServerSession(authOptions);
+    let hasProfile = false;
+
+    if (session?.accessToken) {
+        try {
+            const profile = await myProfileService.getMyProfile(session.accessToken);
+            hasProfile = Boolean(profile?.userName);
+        } catch (error) {
+            console.error("Erro ao carregar perfil para página de tópicos", error);
+        }
+    }
+
     return(
     <>
         <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col pt-19">
@@ -14,11 +29,19 @@ export default function Topics() {
                 className="text-3xl font-bold">
                     Tópicos
                 </h1>
+                {hasProfile ? (
                 <Link href="/topics/create"
                 className="flex gap-2 items-center bg-[var(--primary)] text-[var(--secondary)] rounded-md px-4 py-2 w-fit hover:brightness-110 transition font-bold cursor-pointer">
                     <FaPlus className="inline mr-2" />
                     Novo Tópico
                 </Link>
+                ) : (
+                <Link href="/myprofile"
+                className="flex gap-2 items-center bg-[var(--primary)] text-[var(--secondary)] rounded-md px-4 py-2 w-fit hover:brightness-110 transition font-bold cursor-pointer">
+                    <FaPlus className="inline mr-2" />
+                    Criar Perfil
+                </Link>
+                )}
             </div>
             <FindTopics />
           </section>

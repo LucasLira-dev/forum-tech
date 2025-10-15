@@ -38,19 +38,6 @@ export const ProfileTabs = ({ defaultTab = 'profile' }: ProfileTabsProps) => {
         <UserCoverUploader />
         <UserAvatarUpload />
         <BasicInformation />
-        <div 
-        className="flex gap-2 mt-4">
-          <button
-          type="button"
-          className="flex justify-center items-center gap-2 bg-transparent border border-[var(--border)] text-[var(--muted-foreground)] rounded-md px-4 py-2 w-full sm:w-fit hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition font-bold text-center cursor-pointer">
-            Cancelar
-          </button>
-          <button
-          type="button"
-          className="flex justify-center items-center gap-2 bg-[var(--muted)] text-[var(--primary-foreground)] rounded-md px-4 py-2 w-full sm:w-fit hover:brightness-110 transition font-bold text-center cursor-pointer">
-            Salvar
-          </button>
-      </div>
       </Tabs.Content>
 
       <Tabs.Content value="settings" className="mt-4 flex flex-col gap-5">

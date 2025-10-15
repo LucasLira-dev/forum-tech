@@ -1,5 +1,5 @@
 import { Alert, AlertType } from './alert';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface ToastNotification {
   id: string;
