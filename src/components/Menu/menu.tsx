@@ -48,11 +48,11 @@ export const Menu = () => {
                 ) : (
                     <div className="text-[var(--primary-foreground)] border-b border-[var(--border)] ">
                         <div className='flex justify-end space-x-4'>
-                            <a href="#" 
+                            <Link href="/" 
                             className='rounded-md hover:text-[var(--ring)] transition-colors p-2'
                             >
                                 Inicio
-                            </a>
+                            </Link>
                             <Link href="/topics" className='rounded-md hover:text-[var(--ring)] transition-colors p-2'
                             >
                                 Tópicos
@@ -62,11 +62,11 @@ export const Menu = () => {
                             >
                                 Meu Perfil
                             </Link>
-                            <a href="#" className='rounded-md hover:text-[var(--ring)] transition-colors flex items-center gap-2 p-2'
+                            <Link href="/admin" className='rounded-md hover:text-[var(--ring)] transition-colors flex items-center gap-2 p-2'
                             >   
                                 <MdOutlineAdminPanelSettings size={20} />
                                 Admin
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 )}
@@ -77,24 +77,24 @@ export const Menu = () => {
                 <div 
                 className="fixed top-[72px] left-0 right-0 z-40 text-[var(--primary-foreground)] p-4 menu-blur border-b border-[var(--border)] ">
                     <div className='flex flex-col space-y-2'>
-                        <a href="#" 
+                        <Link href="/" 
                         className='rounded-md hover:text-[var(--ring)] transition-colors p-2 block'
                         >
                             Inicio
-                        </a>
+                        </Link>
                         <Link href="/topics" className='rounded-md hover:text-[var(--ring)] transition-colors p-2 block'
                         >
                             Tópicos
                         </Link>
-                        <a href="#" className='rounded-md hover:text-[var(--ring)] transition-colors p-2 block'
+                        <a href="/myprofile" className='rounded-md hover:text-[var(--ring)] transition-colors p-2 block'
                         >
                             Meu Perfil
                         </a>
-                        <a href="#" className='rounded-md hover:text-[var(--ring)] transition-colors flex items-center gap-2 p-2'
+                        <Link href="/admin" className='rounded-md hover:text-[var(--ring)] transition-colors flex items-center gap-2 p-2'
                         >   
                             <MdOutlineAdminPanelSettings size={20} />
                             Admin
-                        </a>
+                        </Link>
                     </div>
                 </div>
             )}

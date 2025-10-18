@@ -11,37 +11,16 @@ interface ToastNotification {
 interface ToastContainerProps {
   toasts: ToastNotification[];
   onRemoveToast: (id: string) => void;
-  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
 }
 
 export const ToastContainer = ({
   toasts,
-  onRemoveToast,
-  position = 'top-right'
+  onRemoveToast
 }: ToastContainerProps) => {
-  const getPositionClasses = () => {
-    switch (position) {
-      case 'top-left':
-        return 'top-4 left-4';
-      case 'top-center':
-        return 'top-4 left-1/2 transform -translate-x-1/2';
-      case 'top-right':
-        return 'top-4 right-4';
-      case 'bottom-left':
-        return 'bottom-4 left-4';
-      case 'bottom-center':
-        return 'bottom-4 left-1/2 transform -translate-x-1/2';
-      case 'bottom-right':
-        return 'bottom-4 right-4';
-      default:
-        return 'top-4 right-4';
-    }
-  };
-
   if (toasts.length === 0) return null;
 
   return (
-    <div className={`fixed z-50 space-y-2 w-96 max-w-sm ${getPositionClasses()}`}>
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 space-y-3 w-full max-w-md px-4">
       {toasts.map((toast) => (
         <Alert
           key={toast.id}

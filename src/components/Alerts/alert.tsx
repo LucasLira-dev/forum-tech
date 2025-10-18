@@ -55,30 +55,30 @@ export const Alert = ({
     switch (type) {
       case 'success':
         return {
-          containerClass: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
-          textClass: 'text-green-800 dark:text-green-200',
+          containerClass: 'bg-green-100 dark:bg-green-800 border-green-300 dark:border-green-700',
+          textClass: 'text-green-900 dark:text-green-50',
           iconClass: 'text-green-500 dark:text-green-400',
           icon: FaCheckCircle
         };
       case 'warning':
         return {
-          containerClass: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800',
-          textClass: 'text-yellow-800 dark:text-yellow-200',
+          containerClass: 'bg-yellow-100 dark:bg-yellow-800 border-yellow-300 dark:border-yellow-700',
+          textClass: 'text-yellow-900 dark:text-yellow-50',
           iconClass: 'text-yellow-500 dark:text-yellow-400',
           icon: FaExclamationTriangle
         };
       case 'error':
         return {
-          containerClass: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
-          textClass: 'text-red-800 dark:text-red-200',
+          containerClass: 'bg-red-100 dark:bg-red-800 border-red-300 dark:border-red-700',
+          textClass: 'text-red-900 dark:text-red-50',
           iconClass: 'text-red-500 dark:text-red-400',
           icon: FaTimesCircle
         };
       case 'info':
       default:
         return {
-          containerClass: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
-          textClass: 'text-blue-800 dark:text-blue-200',
+          containerClass: 'bg-blue-100 dark:bg-blue-800 border-blue-300 dark:border-blue-700',
+          textClass: 'text-blue-900 dark:text-blue-50',
           iconClass: 'text-blue-500 dark:text-blue-400',
           icon: FaInfoCircle
         };

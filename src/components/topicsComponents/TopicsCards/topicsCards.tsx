@@ -8,13 +8,15 @@ interface TopicsCardsProps {
     description: string;
     user: {
         name: string;
-        avatar: string;
+        avatar?: string;
     };
     time: string;
     answers: number;
 }
 
 export const TopicsCards = ({id, title, description, user, time, answers }: TopicsCardsProps   ) => {
+    const formattedTime = formatRelativeTime(time);
+
     return(
     <Link
     href={`/topics/${id}`}
@@ -46,7 +48,7 @@ export const TopicsCards = ({id, title, description, user, time, answers }: Topi
                 <div
                 className="flex items-center gap-2">
                     <FaClock size={12} />
-                    {time} atrás
+                    {formattedTime}
                 </div>
 
                 <div
@@ -57,4 +59,41 @@ export const TopicsCards = ({id, title, description, user, time, answers }: Topi
             </div>
         </Link>
     )
+}
+
+const MINUTE_IN_MS = 60 * 1000;
+const HOUR_IN_MS = 60 * 60 * 1000;
+const DAY_IN_MS = 24 * HOUR_IN_MS;
+const DATE_FORMATTER = new Intl.DateTimeFormat('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+});
+
+function formatRelativeTime(rawTime: string) {
+    const parsedDate = new Date(rawTime);
+    if (Number.isNaN(parsedDate.getTime())) {
+        return `${rawTime} atrás`;
+    }
+
+    const now = Date.now();
+    const diffInMs = Math.max(0, now - parsedDate.getTime());
+
+    if (diffInMs >= DAY_IN_MS) {
+        return DATE_FORMATTER.format(parsedDate);
+    }
+
+    if (diffInMs < MINUTE_IN_MS) {
+        return "há instantes";
+    }
+
+    if (diffInMs < HOUR_IN_MS) {
+        const minutes = Math.floor(diffInMs / MINUTE_IN_MS);
+        return `há ${minutes} min`;
+    }
+
+    const hours = Math.floor(diffInMs / HOUR_IN_MS);
+    return `há ${hours} h`;
 }

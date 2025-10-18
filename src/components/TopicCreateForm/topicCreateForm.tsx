@@ -2,30 +2,30 @@
 
 import { useState } from "react";
 import { FaPlus, FaTimes, FaPaperPlane } from "react-icons/fa";
+import { useTopics } from "@/contexts/TopicsContext";
 
 export default function TopicCreateForm() {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [tags, setTags] = useState<string[]>([]);
+
+    const { createTopic, setTitle, setDescription, setTechnologies, description, title, technologies, isLoading, setIsLoading } = useTopics();
+
     const [tagInput, setTagInput] = useState("");
 
-    const isAllTags = tags.length >= 5;
+    const isAllTags = technologies.length >= 5;
 
     const addTag = () => {
         if (tagInput.trim() && !isAllTags) {
-            setTags([...tags, tagInput.trim()]);
+            setTechnologies([...technologies, tagInput.trim()]);
             setTagInput("");
         }
     };
 
     const removeTag = (indexToRemove: number) => {
-        setTags(tags.filter((_, index) => index !== indexToRemove));
+        setTechnologies(technologies.filter((_, index) => index !== indexToRemove));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Criando tópico:", { title, content, tags });
-        // Aqui você faria a integração com API
+        createTopic();
     };
 
     return(
@@ -67,8 +67,8 @@ export default function TopicCreateForm() {
                             <textarea
                                 id="content"
                                 name="content"
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
                                 rows={8}
                                 className="w-full p-4 border border-[var(--border)] rounded-lg bg-[var(--input)] text-[var(--foreground)] placeholder-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all resize-none"
                                 placeholder="Descreva sua dúvida ou compartilhe seu conhecimento com a comunidade..."
@@ -78,7 +78,7 @@ export default function TopicCreateForm() {
 
                         <div className="space-y-3">
                             <label htmlFor="tags" className="block text-sm font-semibold text-[var(--foreground)]">
-                                Tags (opcional)
+                                Tags
                             </label>
                             
                             <div className="flex gap-2">
@@ -114,9 +114,9 @@ export default function TopicCreateForm() {
                             </div>
 
                             {/* Tags Display */}
-                            {tags.length > 0 && (
+                            {technologies.length > 0 && (
                                 <div className="flex flex-wrap gap-2">
-                                    {tags.map((tag, index) => (
+                                    {technologies.map((tag, index) => (
                                         <span
                                             key={index}
                                             className="flex items-center gap-2 bg-[var(--muted)] text-[var(--foreground)] rounded-full px-3 py-1 text-sm font-medium border border-[var(--border)]"
@@ -135,18 +135,19 @@ export default function TopicCreateForm() {
                             )}
 
                             <p className="text-[var(--muted-foreground)] text-xs">
-                                Máximo de 5 tags • {5 - tags.length} restantes
+                                Máximo de 5 tags • {5 - technologies.length} restantes
                             </p>
                         </div>
 
                         <div className="flex justify-end pt-4">
                             <button
                                 type="submit"
-                                disabled={!title.trim() || !content.trim()}
+                                disabled={!title.trim() || !description.trim() || technologies.length === 0}
                                 className="flex items-center gap-2 bg-[var(--primary)] hover:bg-purple-600 text-[var(--primary-foreground)] px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={() => { setIsLoading(true); }}
                             >
                                 <FaPaperPlane size={14} />
-                                Publicar Tópico
+                                { isLoading ? "Enviando..." : "Criar Tópico" }
                             </button>
                         </div>
                     </form>

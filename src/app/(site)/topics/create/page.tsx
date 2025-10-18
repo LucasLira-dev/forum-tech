@@ -1,9 +1,9 @@
-
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { myProfileService } from "@/services/myProfileService";
 import TopicCreateForm from "../../../../components/TopicCreateForm/topicCreateForm";
+import { TopicsProvider } from "@/contexts/TopicsContext";
 
 export default async function CreateTopicPage() {
   const session = await getServerSession(authOptions);
@@ -17,5 +17,9 @@ export default async function CreateTopicPage() {
     redirect("/myprofile"); // pode ser /myprofile/setup, etc.
   }
 
-  return <TopicCreateForm />;
+  return (
+    <TopicsProvider>
+      <TopicCreateForm />
+    </TopicsProvider>
+  );
 }

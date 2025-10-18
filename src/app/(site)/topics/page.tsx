@@ -4,6 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
+import { TopicsProvider } from "@/contexts/TopicsContext";
 
 export default async function Topics() {
     const session = await getServerSession(authOptions);
@@ -19,7 +20,7 @@ export default async function Topics() {
     }
 
     return(
-    <>
+    <TopicsProvider>
         <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col pt-19">
         <section
         className="p-6 sm:p-8 md:px-30 space-y-3 ">
@@ -46,6 +47,6 @@ export default async function Topics() {
             <FindTopics />
           </section>
         </main>
-      </>
+      </TopicsProvider>
     )
 }
