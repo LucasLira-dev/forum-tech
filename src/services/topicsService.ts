@@ -30,12 +30,12 @@ export const topicsService = {
             throw error;
         }
     },
-    getAllTopics: async (token: string) => {
+    getAllTopics: async () => {
         try {
             const res = await fetch(`${BASE_URL}/allTopics`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    'Content-Type': 'application/json',
                 }
             });
             if (!res.ok) {
@@ -48,12 +48,12 @@ export const topicsService = {
             throw error;    
         }
     },
-    searchTopics: async (token: string, q: string) => {
+    searchTopics: async ( q: string) => {
         try {
             const res = await fetch(`${BASE_URL}/search?q=${encodeURIComponent(q)}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    'Content-Type': 'application/json',
                 }
             });
             if (!res.ok) {

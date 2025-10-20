@@ -65,6 +65,7 @@ export default function TopicPageClient({ topic }: TopicPageClientProps) {
   const [isDeletingTopic, setIsDeletingTopic] = useState(false);
   const { data: session } = useSession();
 
+
   const sessionUserId = (session?.user as { id?: string } | undefined)?.id;
   const isTopicOwner = sessionUserId === currentTopic.userId;
 

@@ -66,7 +66,7 @@ export const UpdatePassword = () => {
 
     return(
         <>
-            <ToastContainer toasts={toasts} onRemoveToast={removeToast} position="top-center" />
+            <ToastContainer toasts={toasts} onRemoveToast={removeToast}/>
             <form onSubmit={handleSubmit} className="w-full bg-[var(--card)] border border-[var(--border)] rounded-md p-6">
                 <div className="flex flex-col gap-2">
                     <div className="flex gap-2 items-center text-lg font-bold">

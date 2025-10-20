@@ -116,9 +116,9 @@ export const myProfileService = {
             throw new Error('Failed to update profile visibility');
         }
     },
-    deleteProfile: async (token: string) => {
+    deleteAccount: async (token: string) => {
         try {
-            const res = await fetch(`${BASE_URL}/delete-profile`, {
+            const res = await fetch(`http://localhost:3000/user/deleteAccount`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${token}`

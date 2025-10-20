@@ -1,6 +1,15 @@
 import { FaCalendar } from "react-icons/fa"
 
-export const UserProfileInformations = () => {
+interface UserProfileInformationsProps {
+    name: string;
+    username?: string;
+    memberSince?: string;
+    bio?: string;
+    topicsCount?: number;
+    commentsCount?: number;
+}
+
+export const UserProfileInformations = ({name, username, memberSince, bio, topicsCount, commentsCount}: UserProfileInformationsProps) => {
     return(
         <div
         className="bg-[var(--card)] flex flex-col gap-6 p-6 rounded-lg ">
@@ -8,10 +17,10 @@ export const UserProfileInformations = () => {
             className="flex flex-col gap-1">
                 <span
                 className="text-lg font-bold text-[var(--foreground)]">
-                    Lucas mndes
+                    {name}
                 </span>
                 <p className="text-sm text-[var(--muted-foreground)]">  
-                    @lucasmdes
+                    @{username}
                 </p>
             </div>
 
@@ -19,13 +28,13 @@ export const UserProfileInformations = () => {
             className="flex items-center gap-1 text-sm text-[var(--muted-foreground)]">
                 <FaCalendar className="inline mr-2 text-[var(--muted-foreground)]" />
                 <p>
-                    Membro desde: <span className="font-bold text-[var(--foreground)]"> 08/10/2025 </span>
+                    Membro desde: <span className="font-bold text-[var(--foreground)]">{memberSince}</span>
                 </p>
             </div>
 
             <p
             className="text-sm text-[var(--muted-foreground)] leading-relaxed">
-                Desenvolvedor Full Stack apaixonado por criar soluções inovadoras e eficientes. Com experiência em diversas tecnologias, busco sempre aprimorar minhas habilidades e contribuir para projetos desafiadores.
+                { bio ? bio : "Este usuário não adicionou uma biografia ainda."}
             </p>
 
             <div
@@ -34,7 +43,7 @@ export const UserProfileInformations = () => {
                 className="flex flex-col items-center">
                     <span
                     className="font-bold text-[var(--primary)] text-xl">
-                        12
+                        {topicsCount}
                     </span>
                     <p
                     className="text-sm text-[var(--muted-foreground)]
@@ -47,7 +56,7 @@ export const UserProfileInformations = () => {
                 className="flex flex-col items-center">
                     <span
                     className="font-bold text-[var(--primary)] text-xl">
-                        30
+                        {commentsCount}
                     </span>
                     <p
                     className="text-sm text-[var(--muted-foreground)]

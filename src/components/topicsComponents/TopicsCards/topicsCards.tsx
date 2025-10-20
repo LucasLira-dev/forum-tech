@@ -32,7 +32,8 @@ export const TopicsCards = ({id, title, description, user, time, answers }: Topi
 
             <div
             className="flex gap-4 text-[var(--muted-foreground)] text-sm">
-                <div
+                <Link
+                href={`/profile/${user.name}`}
                 className="flex items-center gap-2">
                     <Avatar
                     src={user.avatar}
@@ -43,7 +44,7 @@ export const TopicsCards = ({id, title, description, user, time, answers }: Topi
                     className="font-medium">
                         {user.name}
                     </span>
-                </div>
+                </Link>
 
                 <div
                 className="flex items-center gap-2">

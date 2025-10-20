@@ -1,15 +1,13 @@
 'use client';
 
 import { createContext, ReactNode, useCallback, useContext, useState } from "react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { myProfileService } from "@/services/myProfileService";
+import { useRouter } from "next/navigation";
 
 interface MyConfigContextType {
-    email: string;
-    setEmail: (email: string) => void;
-    passwordForEmail: string;
-    setPasswordForEmail: (password: string) => void;
-    updateEmail: () => void;
+    deleteAccount: () => Promise<void>;
+    isDeleting: boolean;
 }
 
 const myConfigContext = createContext<MyConfigContextType | undefined>(undefined);
@@ -20,29 +18,34 @@ interface MyConfigProviderProps {
 
 export const MyConfigProvider = ({ children }: MyConfigProviderProps) => {
     const { data: session } = useSession();
-    const [email, setEmail] = useState<string>(session?.user?.email || "");
-    const [passwordForEmail, setPasswordForEmail] = useState<string>("");
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-    const updateEmail = useCallback(async ()=> {
+    const router = useRouter();
+
+    const deleteAccount = useCallback(async ()=> {
         if(!session?.accessToken){
             console.error("No access token available");
             return 
         }
 
         try {
-            const res = await myProfileService.updateEmail(session.accessToken, email, passwordForEmail)
-
-            setEmail(res?.data.newEmail)
+            setIsDeleting(true);
+            await myProfileService.deleteAccount(session.accessToken)
+            await signOut({ redirect: false });
+            router.push("/login");
         }
         catch(error)
         {
             console.log(error)
         }
-    }, [session?.accessToken, email, setEmail, passwordForEmail])
+        finally {
+            setIsDeleting(false);
+        }
+    }, [session?.accessToken, router])
 
     return (
         <myConfigContext.Provider
-        value={{ email, setEmail, passwordForEmail, setPasswordForEmail, updateEmail }}>
+        value={{ deleteAccount, isDeleting }}>
             {children}
         </myConfigContext.Provider>
     )

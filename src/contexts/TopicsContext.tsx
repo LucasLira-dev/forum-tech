@@ -88,7 +88,7 @@ const normalizeTopics = (rawTopics: ApiTopic[]): Topic[] =>
 export const TopicsProvider = ({ children }: TopicsProviderProps) => {
     const [topics, setTopics] = useState<Topic[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
 
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -98,14 +98,9 @@ export const TopicsProvider = ({ children }: TopicsProviderProps) => {
     const { toasts, removeToast, success: showSuccessToast, error: showErrorToast } = useToast();
 
     const fetchAllTopics = useCallback(async ()=> {
-        if(!session?.accessToken){
-            console.error("No access token available");
-            return 
-        }
-
         try {
             setIsLoading(true);
-            const res = await topicsService.getAllTopics(session.accessToken);
+            const res = await topicsService.getAllTopics();
             const normalized = normalizeTopics(extractTopicsFromResponse(res));
             setTopics(normalized);
         }
@@ -116,19 +111,13 @@ export const TopicsProvider = ({ children }: TopicsProviderProps) => {
         finally {
             setIsLoading(false);
         }
-    }, [session?.accessToken])
+    }, [])
 
     useEffect(() => {
-        if (status !== "authenticated") return;
         fetchAllTopics();
-    }, [status, fetchAllTopics]);
+    }, [fetchAllTopics]);
 
     const searchTopics = useCallback(async () => {
-        if (!session?.accessToken) {
-            console.error("No access token available");
-            return;
-        }
-
         const query = searchTerm.trim();
 
         if (!query) {
@@ -138,12 +127,12 @@ export const TopicsProvider = ({ children }: TopicsProviderProps) => {
 
         try {
             setIsLoading(true);
-            const res = await topicsService.searchTopics(session.accessToken, query);
+            const res = await topicsService.searchTopics(query);
             const normalized = normalizeTopics(extractTopicsFromResponse(res));
 
             if (normalized.length === 0) {
                 showErrorToast("Nenhum tópico encontrado, exibindo todos.");
-                const allRes = await topicsService.getAllTopics(session.accessToken);
+                const allRes = await topicsService.getAllTopics();
                 setTopics(normalizeTopics(extractTopicsFromResponse(allRes)));
                 return;
             }
@@ -153,13 +142,13 @@ export const TopicsProvider = ({ children }: TopicsProviderProps) => {
         catch (error) {
             console.log(error);
             showErrorToast("Erro ao buscar tópicos");
-            const allRes = await topicsService.getAllTopics(session.accessToken);
+            const allRes = await topicsService.getAllTopics();
             setTopics(normalizeTopics(extractTopicsFromResponse(allRes)));
         }
         finally {
             setIsLoading(false);
         }
-    }, [session?.accessToken, searchTerm, showErrorToast, fetchAllTopics]);
+    }, [ searchTerm, showErrorToast, fetchAllTopics]);
 
     const resetSearch = useCallback(async () => {
         setSearchTerm('');

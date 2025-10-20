@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import * as Tabs from '@radix-ui/react-tabs';
 import { FaUser, FaCog } from 'react-icons/fa';
@@ -8,12 +8,20 @@ import { BasicInformation } from './BasicInformation/basicInformation';
 import { UpdateEmail } from '../ConfigTabs/UpdateEmail/updateEmail';
 import { UpdatePassword } from '../ConfigTabs/UpdatePassword/updatePassword';
 import { ChangePrivacity } from '../ConfigTabs/ChangePrivacity/changePrivacity';
+import { useMyConfig } from '@/contexts/MyConfigContext';
+import { useState } from 'react';
+import { DeleteAlert } from '@/components/Alerts/deleteAlert';
 
 interface ProfileTabsProps {
   defaultTab?: 'profile' | 'settings';
 }
 
 export const ProfileTabs = ({ defaultTab = 'profile' }: ProfileTabsProps) => {
+
+  const {deleteAccount, isDeleting} = useMyConfig();
+  const [confirmChecked, setConfirmChecked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <Tabs.Root defaultValue={defaultTab} className="w-full">
       <Tabs.List className="flex items-center justify-center gap-1 bg-transparent p-2">
@@ -51,17 +59,43 @@ export const ProfileTabs = ({ defaultTab = 'profile' }: ProfileTabsProps) => {
           <p className="text-[var(--muted-foreground)] text-sm mt-2">Ao deletar sua conta, todos os seus dados serão removidos permanentemente. Esta ação não pode ser desfeita.</p>
 
           <div className="mt-4 flex items-center gap-3">
-            <input id="confirm-delete" type="checkbox" className="w-4 h-4" />
+            <input
+              id="confirm-delete"
+              type="checkbox"
+              className="w-4 h-4"
+              checked={confirmChecked}
+              onChange={(e) => setConfirmChecked(e.target.checked)}
+            />
             <label htmlFor="confirm-delete" className="text-[var(--muted-foreground)] text-sm">Confirmo que desejo deletar minha conta</label>
           </div>
 
           <button
             type="button"
-            onClick={() => { /* placeholder: chamar API para deletar conta */ }}
-            className="mt-4 bg-[var(--destructive)] text-[var(--destructive-foreground)] rounded-md px-4 py-2 hover:brightness-95 transition font-bold"
+            onClick={() => setIsModalOpen(true)}
+            disabled={!confirmChecked || isDeleting}
+            className={`mt-4 rounded-md px-4 py-2 font-bold transition ${isDeleting ? 'bg-[var(--muted)] text-[var(--muted-foreground)] cursor-not-allowed' : 'bg-[var(--destructive)] text-[var(--destructive-foreground)] hover:brightness-95'}`}
           >
-            Deletar conta
+            {isDeleting ? 'Deletando...' : 'Deletar'}
           </button>
+
+          <DeleteAlert
+            isOpen={isModalOpen}
+            message="Tem certeza que deseja deletar sua conta? Esta ação é permanente e não poderá ser desfeita."
+            onCancel={() => setIsModalOpen(false)}
+            onConfirm={async () => {
+              if (isDeleting) return;
+              setIsModalOpen(false);
+              try {
+                await deleteAccount();
+              }
+              catch (_) {
+                // deleteAccount already logs errors; we keep modal closed and allow toast/feedback elsewhere
+              }
+            }}
+            title="Deletar conta"
+            confirmText={isDeleting ? 'Deletando...' : 'Excluir'}
+            cancelText="Cancelar"
+          />
         </div>
       </Tabs.Content>
     </Tabs.Root>
