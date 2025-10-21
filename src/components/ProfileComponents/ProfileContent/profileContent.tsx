@@ -5,6 +5,7 @@ import UserActivityTabs from "../UserActivityTabs/userActivityTabs"
 import { UserProfileInformations } from "../UserProfileInformations/userProfileInformations"
 import { useQuery } from "@tanstack/react-query"
 import { profileService } from "@/services/publicProfile" 
+import { ProfileSkeleton } from "@/components/Skeletons/profilesSkeletons/profileSkeleton";
 
 export const ProfileContent = ({ username}: { username: string }) => {
 
@@ -15,34 +16,35 @@ export const ProfileContent = ({ username}: { username: string }) => {
         enabled: !!username, // só executa a query se o username estiver disponível
     });
 
-    if (isLoading) {
-        return <p>Carregando perfil...</p>;
-    }
-
     if (isError || !userProfile) {
         return <p>Erro ao carregar o perfil. Tente novamente mais tarde.</p>;
     }
 
-    return(
-        <article
-        className="flex flex-col gap-2 justify-start w-full">
+    return (
+      <article className="flex flex-col gap-2 justify-start w-full">
+        {isLoading ? (
+          <ProfileSkeleton />
+        ) : (
+          <>
             <ProfileBanner
-            avatarUrl={userProfile?.userAvatar}
-            coverUrl={userProfile?.capa}
-            name={userProfile?.name}
-             /> 
+              avatarUrl={userProfile?.userAvatar}
+              coverUrl={userProfile?.capa}
+              name={userProfile?.name}
+            />
             <UserProfileInformations
-            bio={userProfile?.bio}
-            commentsCount={userProfile?.comments?.length || 0}
-            topicsCount={userProfile?.topics?.length || 0}
-            memberSince={userProfile?.createdAt}
-            name={userProfile?.name || ""}
-            username={userProfile?.userName}
-             /> 
+              bio={userProfile?.bio}
+              commentsCount={userProfile?.comments?.length || 0}
+              topicsCount={userProfile?.topics?.length || 0}
+              memberSince={userProfile?.createdAt}
+              name={userProfile?.name || ""}
+              username={userProfile?.userName}
+            />
             <UserActivityTabs
-            comments={userProfile?.comments || []}
-            topics={userProfile?.topics || []}
-             />
-        </article> 
-    )
+              comments={userProfile?.comments || []}
+              topics={userProfile?.topics || []}
+            />
+          </>
+        )}
+      </article>
+    );
 }

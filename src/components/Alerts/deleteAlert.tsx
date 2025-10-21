@@ -8,6 +8,7 @@ interface DeleteAlertProps {
   title?: string;
   confirmText?: string;
   cancelText?: string;
+  isDeleting?: boolean;
 }
 
 export const DeleteAlert = ({
@@ -17,7 +18,8 @@ export const DeleteAlert = ({
   onCancel,
   title = "Confirmar Exclusão",
   confirmText = "Excluir",
-  cancelText = "Cancelar"
+  cancelText = "Cancelar",
+  isDeleting
 }: DeleteAlertProps) => {
   // Don't render if not open
   if (!isOpen) return null;
@@ -75,12 +77,13 @@ export const DeleteAlert = ({
           <button
             onClick={handleConfirm}
             className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-red-600 text-white hover:bg-red-700 rounded-md transition-colors"
+            disabled={isDeleting}
           >
             <FaTrash className="w-3 h-3" />
             {confirmText}
           </button>
         </div>
-      </div>
+      </div>  
     </div>
   );
 };

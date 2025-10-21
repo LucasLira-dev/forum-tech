@@ -61,6 +61,7 @@ export const authOptions: NextAuthOptions = {
                 token.refreshToken = user.refreshToken;
                 token.id = user.id;
                 token.email = user.email;
+                token.role = user.role;
                 return token
             }
 

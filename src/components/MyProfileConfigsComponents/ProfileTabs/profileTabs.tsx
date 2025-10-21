@@ -11,6 +11,7 @@ import { ChangePrivacity } from '../ConfigTabs/ChangePrivacity/changePrivacity';
 import { useMyConfig } from '@/contexts/MyConfigContext';
 import { useState } from 'react';
 import { DeleteAlert } from '@/components/Alerts/deleteAlert';
+import { useToast } from '@/components/Alerts/toast';
 
 interface ProfileTabsProps {
   defaultTab?: 'profile' | 'settings';
@@ -21,6 +22,7 @@ export const ProfileTabs = ({ defaultTab = 'profile' }: ProfileTabsProps) => {
   const {deleteAccount, isDeleting} = useMyConfig();
   const [confirmChecked, setConfirmChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { success, error } = useToast();
 
   return (
     <Tabs.Root defaultValue={defaultTab} className="w-full">
@@ -87,14 +89,16 @@ export const ProfileTabs = ({ defaultTab = 'profile' }: ProfileTabsProps) => {
               setIsModalOpen(false);
               try {
                 await deleteAccount();
+                success('Conta deletada com sucesso. Até logo!');
               }
-              catch (_) {
-                // deleteAccount already logs errors; we keep modal closed and allow toast/feedback elsewhere
+              catch {
+                error('Não foi possível deletar a conta. Tente novamente mais tarde.');
               }
             }}
             title="Deletar conta"
             confirmText={isDeleting ? 'Deletando...' : 'Excluir'}
             cancelText="Cancelar"
+            isDeleting={isDeleting}
           />
         </div>
       </Tabs.Content>

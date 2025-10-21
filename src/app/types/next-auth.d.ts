@@ -18,6 +18,7 @@ declare module "next-auth" {
     token: string;
     expiresAt: number;
     refreshToken?: string;
+    role?: string;
   }
 }
 
