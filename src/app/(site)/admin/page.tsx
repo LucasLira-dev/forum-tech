@@ -7,8 +7,8 @@ import { OptionAdmin } from "@/components/AdminComponents/OptionsAdmin/optionsAd
 
 export default async function AdminPage() {
     const session = await getServerSession(authOptions);
-    const canAccess = session?.user?.role === 'admin' || session?.accessToken
-    if (!canAccess) redirect("/");
+    const canAccess = session?.user?.role === 'admin' && !!session?.accessToken;
+    if (!canAccess) redirect("/login");
 
     return(
         <QueryProvider>

@@ -1,20 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { IoMenu } from "react-icons/io5";
 import { FiX } from "react-icons/fi";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import Link from 'next/link';
 
 
-export const Menu = () => {
+export const Menu = ({ isAdmin }: { isAdmin: boolean }) => {
     const [isMobile, setIsMobile] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-
-    const { data: session } = useSession();
-
-    const isAdmin = session?.user?.role === "admin";
 
     useEffect(() => {
         const handleResize = () => {

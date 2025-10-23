@@ -20,7 +20,7 @@ export const CtaSection = () => {
                 <FaArrowRight className="inline ml-2" />
             </Link>
             <Link href="/topics"
-            className="bg-[var(--background)] text-[var(--foreground)] px-6 py-3 rounded-md hover:bg-transparent hover:text-[var(--foreground)] transition-colors cursor-pointer w-full sm:w-auto sm:min-w-[200px] border border-[var(--border)]">
+            className="bg-[var(--background)] text-[var(--foreground)] px-6 py-3 rounded-md hover:bg-transparent hover:text-[var(--foreground)] transition-colors cursor-pointer w-full sm:w-auto sm:min-w-[200px] border border-[var(--border)] flex items-center justify-center">
                 Explorar comunidade
             </Link>
            </div>   

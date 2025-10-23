@@ -6,6 +6,7 @@ import { UserProfileInformations } from "../UserProfileInformations/userProfileI
 import { useQuery } from "@tanstack/react-query"
 import { profileService } from "@/services/publicProfile" 
 import { ProfileSkeleton } from "@/components/Skeletons/profilesSkeletons/profileSkeleton";
+import { ProfileError } from "../ProfileError/profileError";
 
 export const ProfileContent = ({ username}: { username: string }) => {
 
@@ -16,16 +17,16 @@ export const ProfileContent = ({ username}: { username: string }) => {
         enabled: !!username, // só executa a query se o username estiver disponível
     });
 
+    if (isLoading) {
+        return <ProfileSkeleton />
+    }
+
     if (isError || !userProfile) {
-        return <p>Erro ao carregar o perfil. Tente novamente mais tarde.</p>;
+        return <ProfileError />
     }
 
     return (
       <article className="flex flex-col gap-2 justify-start w-full">
-        {isLoading ? (
-          <ProfileSkeleton />
-        ) : (
-          <>
             <ProfileBanner
               avatarUrl={userProfile?.userAvatar}
               coverUrl={userProfile?.capa}
@@ -43,8 +44,6 @@ export const ProfileContent = ({ username}: { username: string }) => {
               comments={userProfile?.comments || []}
               topics={userProfile?.topics || []}
             />
-          </>
-        )}
       </article>
     );
 }

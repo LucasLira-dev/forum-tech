@@ -16,6 +16,15 @@ export const myProfileService = {
                 }
             });
             if (!res.ok) {
+                if (res.status === 404) {
+                    return {
+                    avatarUrl: undefined,
+                    capaUrl: undefined,
+                    userName: "",
+                    bio: "",
+                    isPublic: false
+                    };
+                }
                 throw new Error('Failed to fetch user profile');
             }
             const data = await res.json();

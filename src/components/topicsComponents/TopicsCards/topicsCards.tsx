@@ -1,6 +1,7 @@
 import Avatar from "@/components/ui/avatar"
 import Link from "next/link";
 import { FaClock, FaComment } from "react-icons/fa"
+import { useRouter } from "next/navigation";
 
 interface TopicsCardsProps {
     id: string;
@@ -16,6 +17,7 @@ interface TopicsCardsProps {
 
 export const TopicsCards = ({id, title, description, user, time, answers }: TopicsCardsProps   ) => {
     const formattedTime = formatRelativeTime(time);
+    const router = useRouter();
 
     return(
     <Link
@@ -26,15 +28,18 @@ export const TopicsCards = ({id, title, description, user, time, answers }: Topi
                 {title}
             </h2>
             <p
-            className="text-[var(--muted-foreground)] text-sm">
+            className ="text-[var(--muted-foreground)] text-sm">
                 {description}
             </p>
 
             <div
             className="flex gap-4 text-[var(--muted-foreground)] text-sm">
-                <Link
-                href={`/profile/${user.name}`}
-                className="flex items-center gap-2">
+                <div
+                className="flex items-center gap-2"
+                onClick={e => {
+                    e.stopPropagation();
+                    router.push(`profile/${user.name}`)
+                }}>
                     <Avatar
                     src={user.avatar}
                     alt="Usuário" 
@@ -44,7 +49,7 @@ export const TopicsCards = ({id, title, description, user, time, answers }: Topi
                     className="font-medium">
                         {user.name}
                     </span>
-                </Link>
+                </div>
 
                 <div
                 className="flex items-center gap-2">

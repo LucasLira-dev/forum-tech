@@ -57,9 +57,9 @@ export const FindTopics = () => {
 
         <div className="flex flex-col mt-4">
           {isLoading ? (
-            <p className="text-[var(--muted-foreground)] text-center mt-10">
+            <div className="text-[var(--muted-foreground)] text-center mt-10">
               <TopicsSkeleton count={4} />
-            </p>
+            </div>
           ) : topics.length === 0 ? (
             <p className="text-[var(--muted-foreground)] text-center mt-10">
               Nenhum tópico encontrado.
