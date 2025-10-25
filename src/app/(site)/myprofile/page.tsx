@@ -3,10 +3,12 @@ import { MyProfileProvider } from "@/contexts/MyProfileContext";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import { Providers } from "../../providers";
+import { MyConfigProvider } from "@/contexts/MyConfigContext";
 
 export default function MyProfile() {
     return(
         <Providers>
+            <MyConfigProvider>
             <MyProfileProvider>
                 <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col items-center pt-19">
                     <section
@@ -35,6 +37,7 @@ export default function MyProfile() {
                     </section>
                 </main>
             </MyProfileProvider>
+            </MyConfigProvider>
         </Providers>
     )
 }
