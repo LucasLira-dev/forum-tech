@@ -2,7 +2,7 @@ import { LuShield } from "react-icons/lu"
 import { QueryProvider } from "../profile/[username]/queryProvider"
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { OptionAdmin } from "@/components/AdminComponents/OptionsAdmin/optionsAdmin";
 
 export default async function AdminPage() {

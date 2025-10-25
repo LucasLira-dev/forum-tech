@@ -4,11 +4,18 @@ import { FeaturedDiscussions } from "@/components/homeComponents/FeaturedDiscuss
 import { WhyChooseUs } from "@/components/homeComponents/WhyChooseUs/whyChooseUs";
 import { Menu } from "@/components/Menu/menu";
 import { Providers } from "./providers";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  const isAdm = session?.user?.role === "admin";
+
   return (
       <Providers>
-        <Menu />
+        <Menu
+        isAdmin={isAdm}
+         />
         <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col">
           <div className="pt-19">
             <ConnectSection />

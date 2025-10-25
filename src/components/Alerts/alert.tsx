@@ -1,5 +1,5 @@
 import { FaCheckCircle, FaExclamationTriangle, FaInfoCircle, FaTimesCircle, FaTimes } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export type AlertType = 'success' | 'warning' | 'info' | 'error';
 
@@ -24,7 +24,19 @@ export const Alert = ({
 }: AlertProps) => {
   const [visible, setVisible] = useState(isVisible);
 
-  // Auto close functionality
+
+  // Update visibility when prop changes
+  useEffect(() => {
+    setVisible(isVisible);
+  }, [isVisible]);
+
+  const handleClose = useCallback(() => {
+    setVisible(false);
+    if (onClose) {
+      onClose();
+    }
+  }, [onClose]);
+
   useEffect(() => {
     if (autoClose && visible) {
       const timer = setTimeout(() => {
@@ -33,19 +45,7 @@ export const Alert = ({
 
       return () => clearTimeout(timer);
     }
-  }, [autoClose, autoCloseDelay, visible]);
-
-  // Update visibility when prop changes
-  useEffect(() => {
-    setVisible(isVisible);
-  }, [isVisible]);
-
-  const handleClose = () => {
-    setVisible(false);
-    if (onClose) {
-      onClose();
-    }
-  };
+  }, [autoClose, autoCloseDelay, visible, handleClose]);
 
   // Don't render if not visible
   if (!visible) return null;

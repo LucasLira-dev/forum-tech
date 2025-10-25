@@ -5,6 +5,7 @@ interface MyProfileData {
 
 const API_HOST = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 const BASE_URL = `${API_HOST.replace(/\/$/, '')}/profile`;
+const USER_URL = `${API_HOST.replace(/\/$/, '')}/user`;
 
 export const myProfileService = {
     getMyProfile: async (token: string) => {
@@ -127,7 +128,7 @@ export const myProfileService = {
     },
     deleteAccount: async (token: string) => {
         try {
-            const res = await fetch(`http://localhost:3000/user/deleteAccount`, {
+            const res = await fetch(`${USER_URL}/deleteAccount`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -149,7 +150,7 @@ export const myProfileService = {
 
     updateEmail: async (token: string, newEmail: string, password: string) => {
         try {
-            const res = await fetch(`http://localhost:3000/user/updateEmail`, {
+            const res = await fetch(`${USER_URL}/updateEmail`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -179,7 +180,7 @@ export const myProfileService = {
 
     updatePassword: async (token: string, currentPassword: string, newPassword: string) => {
         try {
-            const res = await fetch(`http://localhost:3000/user/updatePassword`, {
+            const res = await fetch(`${USER_URL}/updatePassword`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

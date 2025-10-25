@@ -1,6 +1,6 @@
 import { FindTopics } from "@/components/topicsComponents/FindTopics/findTopics";
 import { myProfileService } from "@/services/myProfileService";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
