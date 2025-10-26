@@ -19,7 +19,7 @@ export const BasicInformation = () => {
     const handleSave = () => {
         setUserName(inputUserName);
         setBio(inputBio);
-        updateProfile();
+        updateProfile(inputUserName, inputBio);
     };
 
     const handleCancel = () => {
@@ -43,6 +43,7 @@ export const BasicInformation = () => {
                         id="name"
                         name="name"
                         value={inputUserName}
+                        minLength={3}
                         maxLength={50}
                         className="w-full mt-1 p-2 rounded-md border border-[var(--border)] bg-[var(--input)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:border-transparent"
                         placeholder="Seu nome"

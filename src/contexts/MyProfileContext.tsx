@@ -14,7 +14,7 @@ interface MyProfileContextType {
     setUserName: (name: string) => void;
     bio?: string;
     setBio: (bio: string) => void;
-    updateProfile: () => Promise<void>;
+    updateProfile: (userNameParam: string, bioParam: string) => Promise<void>;
     savingInfos: boolean;
     savingAvatar: boolean;
     savingCapa: boolean;
@@ -64,22 +64,24 @@ export const MyProfileProvider = ({ children }: MyProfileProviderProps) => {
     }, [session?.accessToken, showErrorToast]);
 
     useEffect(() => {
-        if (status !== "authenticated") return;
+      if (status === "authenticated" && session?.accessToken) {
         fetchMyProfileData();
-    }, [status, fetchMyProfileData]);
+      }
+    }, [status, session?.accessToken, fetchMyProfileData]);
 
-
-    const updateProfile = useCallback(async () => {
+    const updateProfile = useCallback(async (userNameParam: string, bioParam?: string) => {
         if (!session?.accessToken) {
             console.error("No access token available");
             showErrorToast("Sessão expirada. Faça login novamente.");
             return;
         }
+        
+        const nameToSend = userNameParam?.trim() ?? userName.trim();
+        const bioToSend = bioParam?.trim() ?? bio?.trim();
 
         try {
             setSavingInfos(true);
-            const res = await myProfileService.updateMyProfile(session.accessToken, { userName: userName.trim(), bio: bio?.trim() });
-
+            const res = await myProfileService.updateMyProfile(session.accessToken, { userName: nameToSend, bio: bioToSend });
             setUserName(res.userName);
             setBio(res.bio);
             showSuccessToast("Perfil atualizado com sucesso!");

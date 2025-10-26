@@ -38,6 +38,7 @@ export const myProfileService = {
     },
     updateMyProfile: async (token: string, profileData: MyProfileData) => {
         try {
+            console.log('[updateMyProfile] Payload enviado:', profileData);
             const res = await fetch(`${BASE_URL}/update-profile`, {
                 method: 'PATCH',
                 headers: {
@@ -47,13 +48,22 @@ export const myProfileService = {
                 body: JSON.stringify(profileData)
             });
             if (!res.ok) {
-                throw new Error('Failed to update user profile');
+                let errorMsg = 'Failed to update user profile';
+                try {
+                    const errorData = await res.json();
+                    console.error('[updateMyProfile] Erro da API:', errorData);
+                    if (errorData?.message) errorMsg += `: ${errorData.message}`;
+                } catch (e) {
+                    console.error('[updateMyProfile] Erro ao ler resposta da API:', e);
+                }
+                throw new Error(errorMsg);
             }
             const data = await res.json();
+            console.log('[updateMyProfile] Resposta da API:', data);
             return data;
         }
         catch (error) {
-            console.error(error);
+            console.error('[updateMyProfile] Exception:', error);
             throw new Error('Failed to update user profile');
         }
     },

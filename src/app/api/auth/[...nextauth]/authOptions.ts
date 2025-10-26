@@ -58,7 +58,6 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
-      console.log("🧠 JWT callback chamado");
 
       // 🔹 Quando o usuário faz login
       if (user) {
@@ -77,9 +76,7 @@ export const authOptions: NextAuthOptions = {
       if (token.expiresAt && Date.now() < token.expiresAt) {
         return token;
       }
-
-      // 🔄 Token expirado → tenta renovar
-      console.log("🔄 Token expirado, tentando refresh...");
+      
       try {
         const res = await fetch(`${apiUrl}/auth/refreshToken`, {
           method: "POST",
@@ -88,8 +85,6 @@ export const authOptions: NextAuthOptions = {
             refreshToken: token.refreshToken,
           }),
         });
-
-        console.log("Resposta do refresh token:", res.status, res.statusText);
 
         if (!res.ok) throw new Error("Failed to refresh token");
 

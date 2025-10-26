@@ -9,7 +9,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  const isAdm = session?.user?.role === "admin";
+  const isAdm = session?.user?.role === "admin"; 
 
   return (
       <Providers>
