@@ -6,6 +6,9 @@ interface TopicPageProps {
 import { notFound } from "next/navigation";
 import { topicsService } from "@/services/topicsService";
 import TopicPageClient from "./TopicPageClient";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
+import { myProfileService } from "@/services/myProfileService";
 
 interface TopicProfile {
   userName?: string | null;
@@ -88,6 +91,14 @@ const normalizeTopic = (topic: TopicApiResponse): NormalizedTopic => ({
 export default async function TopicPage({ params }: TopicPageProps) {
   const { topicId } = await params;
 
+  const session = await getServerSession(authOptions);
+      let hasProfile = false;
+  
+      if (session?.accessToken) {
+          const profile = await myProfileService.getMyProfile(session.accessToken);
+          hasProfile = Boolean(profile?.userName);
+      }
+
   if (!topicId) {
     notFound();
   }
@@ -109,6 +120,6 @@ export default async function TopicPage({ params }: TopicPageProps) {
 
   const normalizedTopic = normalizeTopic(rawTopic as TopicApiResponse);
 
-  return <TopicPageClient topic={normalizedTopic} />;
+  return <TopicPageClient topic={normalizedTopic} hasProfile={hasProfile} />;
 }
            

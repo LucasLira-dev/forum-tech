@@ -1,11 +1,13 @@
+import Link from "next/link";
 import { FaComment, FaPlus } from "react-icons/fa"
 
 interface CommentButtonProps {
     quantity: number;
+    canComment: boolean;
     onCommentClick: () => void;
 }
 
-export const CommentButton = ({ quantity, onCommentClick }: CommentButtonProps) => {
+export const CommentButton = ({ quantity, canComment, onCommentClick }: CommentButtonProps) => {
     return (
       <div className="flex justify-between items-center px-2">
         <div className="flex items-center gap-2 text-[var(--foreground)]">
@@ -14,12 +16,24 @@ export const CommentButton = ({ quantity, onCommentClick }: CommentButtonProps) 
           <span className="text-gray-500">({quantity})</span>
         </div>
 
-        <button 
-        onClick={onCommentClick}
-        className="flex items-center gap-2 bg-[var(--primary)] text-[var(--secondary)] rounded-md px-4 py-2 w-fit hover:brightness-110 transition font-bold cursor-pointer">
-          <FaPlus className="mr-2" />
-          Comentar
-        </button>
+        {
+          canComment ? (
+            <button 
+            onClick={onCommentClick}
+            className="flex items-center gap-2 bg-[var(--primary)] text-[var(--secondary)] rounded-md px-4 py-2 w-fit hover:brightness-110 transition font-bold cursor-pointer">
+              <FaPlus className="mr-2" />
+              Comentar
+            </button>
+          ) : (
+            <Link
+            href={"/myprofile"}
+            className="flex items-center gap-2 bg-[var(--muted)] text-[var(--foreground)] rounded-md px-4 py-2 w-fit hover:brightness-110 transition font-bold cursor-pointer">
+              <FaPlus className="mr-2" />
+              Adicionar perfil para comentar
+            </Link>
+          )
+        }
       </div>
+
     );
 }

@@ -56,7 +56,7 @@ export const Menu = ({ isAdmin }: { isAdmin: boolean }) => {
                   Tópicos
                 </Link>
                 <Link
-                  href="/profile"
+                  href="/myprofile"
                   className="rounded-md hover:text-[var(--ring)] transition-colors p-2"
                 >
                   Meu Perfil

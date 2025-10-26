@@ -20,7 +20,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
 
     if (status === 'loading') return;
     if (status === 'unauthenticated' || !session?.accessToken) {
-      router.replace('/login');
+      router.push('/login');
     }
   }, [status, session?.accessToken, router, isPublicPath]);
 

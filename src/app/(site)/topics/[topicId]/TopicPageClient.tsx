@@ -53,9 +53,10 @@ interface TopicDetails {
 
 interface TopicPageClientProps {
   topic: TopicDetails;
+  hasProfile: boolean;
 }
 
-export default function TopicPageClient({ topic }: TopicPageClientProps) {
+export default function TopicPageClient({ topic, hasProfile }: TopicPageClientProps) {
   const router = useRouter();
   const { success, error } = useToast();
   const [isCommentInputOpen, setIsCommentInputOpen] = useState(false);
@@ -201,6 +202,7 @@ export default function TopicPageClient({ topic }: TopicPageClientProps) {
 
         <CommentButton
           quantity={comments.length}
+          canComment={hasProfile}
           onCommentClick={handleCommentClick}
         />
 
