@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { BsArrowRight } from "react-icons/bs"
+import Link from "next/link";
+import { BsArrowRight } from "react-icons/bs";
 
 export const ConnectSection = () => {
     return (
@@ -13,41 +13,38 @@ export const ConnectSection = () => {
                 }}
             />
             
-            {/* Color Overlay */}
+            {/* Color Overlay + Blur */}
             <div 
-                className="absolute inset-0"
+                className="absolute inset-0 backdrop-blur-md"
                 style={{ 
-                    backgroundColor: 'var(--connectSection)', 
+                    background: 'linear-gradient(120deg, #746cc5 60%, #A855F7 100%)',
                     opacity: 0.85 
                 }}
             />
-            
-            {/* Content */}
-            <div className="relative z-10 flex flex-col gap-6 items-center justify-center w-full">
-            <h2
-            className="text-3xl sm:text-4xl md:text-5xl lg:6xl font-bold text-[var(--secondary)] text-center ">
-                Conecte-se com a comunidade <span className="text-[var(--destructive)]"> tech </span>
-            </h2>
-            <p
-            className="text-[var(--secondary)] text-[24px] text-center mt-4 max-w-xl mb-4">
-                Compartilhe conhecimento, tire dúvidas e construa o futuro da tecnologia junto com milhares de desenvolvedores.
-            </p>
 
-            <div
-            className="flex flex-col justify-center items-center sm:flex-row gap-2 w-full">
-                <Link href="/topics"
-                className="flex bg-[var(--background)] gap-2 text-[var(--primary)] text-[16px] font-semibold rounded-md px-4 py-2 hover:bg-[var(--ring)] hover:text-[var(--foreground)] transition-colors border-1 border-[var(--background)] cursor-pointer w-full sm:max-w-[300px] justify-center items-center">
-                    <p>
+            {/* Content */}
+            <div className="relative z-10 flex flex-col gap-8 items-center justify-center w-full">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-[var(--primary)] text-center drop-shadow-lg animate-fade-in">
+                    Conecte-se com a comunidade <span className="text-[var(--destructive)]">tech</span>
+                </h2>
+                <p className="text-[var(--secondary)] text-lg sm:text-xl md:text-2xl text-center mt-2 max-w-2xl mb-4 font-medium animate-fade-in">
+                    Compartilhe conhecimento, tire dúvidas e construa o futuro da tecnologia junto com milhares de desenvolvedores.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
+                    <Link href="/topics"
+                        className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-lg bg-gradient-to-r from-[var(--primary)] to-[var(--ring)] text-[var(--primary-foreground)] shadow-lg hover:scale-105 hover:brightness-110 transition-all duration-200 border border-[var(--primary)]"
+                    >
                         Explorar Discussões
-                    </p>
-                    <BsArrowRight size={20} className="ml-2" />
-                </Link>
-                <Link href="/topics/create"
-                className="flex bg-transparent gap-2 text-[var(--secondary)] text-[16px] font-semibold rounded-md px-4 py-2 hover:bg-[var(--foreground)]/20 transition-colors border-1 border-[var(--border)] cursor-pointer w-full sm:max-w-[300px] justify-center">
-                    Criar Tópico
-                </Link>
-            </div>
+                        <BsArrowRight size={22} className="ml-2" />
+                    </Link>
+                    <Link href="/topics/create"
+                        className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-lg bg-[var(--card)] text-[var(--secondary)] border border-[var(--border)] shadow-md hover:bg-[var(--muted)] hover:text-[var(--primary)] hover:scale-105 transition-all duration-200"
+                    >
+                        Criar Tópico
+                    </Link>
+                </div>
             </div>
         </section>
-    )
-}
+    );
+};

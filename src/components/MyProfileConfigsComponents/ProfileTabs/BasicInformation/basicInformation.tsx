@@ -8,7 +8,6 @@ export const BasicInformation = () => {
     const [inputUserName, setInputUserName] = useState<string>(userName || "");
     const [inputBio, setInputBio] = useState<string>(bio || "");
 
-    // Sincroniza estado local com contexto ao carregar/atualizar
     useEffect(() => {
         setInputUserName(userName || "");
     }, [userName]);

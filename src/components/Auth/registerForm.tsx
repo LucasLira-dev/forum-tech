@@ -4,7 +4,7 @@ import type React from "react";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { registerUser } from "./registerAction";
 
 export function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -18,88 +18,27 @@ export function RegisterForm() {
 
   const router = useRouter();
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const strongPasswordRegex = /^(?=(?:.*[A-Za-z]){5,})(?=.*[^A-Za-z0-9]).+$/;
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     setLoading(true);
 
-    try {
+    const result = await registerUser(username, email, password, confirmPassword);
 
-      const trimmedUsername = username.trim();
-      const trimmedEmail = email.trim();
-      const trimmedPassword = password.trim();
-      const trimmedConfirmPassword = confirmPassword.trim();
-
-      if (!trimmedEmail || !trimmedPassword || !trimmedUsername) {
-        setError("Email e senha são obrigatórios");
-        setLoading(false);
-        return;
-      }
-
-
-      if(!emailRegex.test(trimmedEmail)) {
-        setError("Por favor, insira um email válido.");
-        setLoading(false);
-        return;
-      }
-
-      if(!strongPasswordRegex.test(trimmedPassword)) {
-        setError("A senha deve ter pelo menos 5 letras e 1 caractere especial.");
-        setLoading(false);
-        return;
-      }
-
-      if(trimmedPassword !== trimmedConfirmPassword) {
-        setError("As senhas não coincidem.");
-        setLoading(false);
-        return;
-      }
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: trimmedUsername,
-          email: trimmedEmail,
-          password: trimmedPassword,
-        }),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || 'Erro ao criar conta');
-      }
-
-      const loginResult = await signIn('credentials', {
-        redirect: false,
-        email: trimmedEmail,
-        password: trimmedPassword,
-      });
-
-      if (loginResult?.error) {
-        setError("Email ou senha inválidos");
-        setLoading(false);
-        return;
-      }
-
-      // Redireciona para a página de tópicos após o registro e login bem-sucedidos
-      router.push("/topics");
-      
-      // opcional: limpar campos
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setError(null);
-    } catch (error) {
-      console.error("Erro ao criar conta:", error);
-      setError("Erro ao criar conta. Tente novamente.");
-    } finally {
+    if (result?.error) {
+      setError(result.error);
       setLoading(false);
+      return;
     }
+
+    //limpa os campos
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setError(null);
+
+    router.push("/topics");
   };
 
   return (
